@@ -1,13 +1,14 @@
 import { Router } from "express";
 import { authenticateToken, validateBody } from "@/middlewares";
-import { getEnrollmentByUser, postCreateOrUpdateEnrollment, getAddressFromCEP } from "@/controllers";
+import { getTicketsByUser, getTicketsTypes, createTicket} from "@/controllers";
 import { createEnrollmentSchema } from "@/schemas";
 
 const ticketsRouter = Router();
 
 ticketsRouter
   .all("/*", authenticateToken)
-  .get("/", getEnrollmentByUser)
-  .post("/", validateBody(createEnrollmentSchema), postCreateOrUpdateEnrollment);
+  .get("/", getTicketsByUser)
+  .post("/", validateBody(createEnrollmentSchema), createTicket)
+  .get("/types", getTicketsTypes)
 
 export { ticketsRouter };
